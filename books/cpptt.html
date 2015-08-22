@@ -63,10 +63,8 @@
 <p>C++のテンプレートは、パラメタライズド・タイプ(parameterized type)という、処理に使用する型をパラメータ化する機能です。この機能を使用することにより、型が違うだけで同じことをするプログラムコードを共通化でき、コードの再利用性を高めることができます。その共通化は、簡単なコードであればテンプレートを単に使用するだけで行えますが、「特定の型、または特定の条件に一致する型の場合は、違うことをしたい」のような要求が発生した場合には、いくつかの「技法」が必要になります。</p>
 <p>本書で紹介するテンプレートに関する技法は、C++のユーザーコミュニティが長年かけて編み出してきたものたちです。C++は、「言語機能は極力増やさない。できるかぎりライブラリで実現せよ」という設計思想を持った言語です。そのため、ライブラリを作るユーザーが「技を編み出す」という場面が多くあります。本書はそういった、ひらめきの結晶、人類の叡智といったものを集めた書籍になっています。<br />本書を読むことで、テンプレートを使用した既存の技法を身につけるだけでなく、新たな技法を編み出し、C++やプログラミングをさらなる高みへと押し上げてくれる方が現れることを願っております。</p>
 <h2 id="コンセプト">コンセプト</h2>
-<ul>
-<li>C++入門書に記載されているテンプレートの解説と、難しいと言われているテンプレート技法の書籍<a href="https://www.amazon.co.jp/dp/4894714353?tag=faithandbrave-22&amp;camp=1027&amp;creative=7407&amp;linkCode=as4&amp;creativeASIN=4894714353&amp;adid=1P3B388D777W6VBNQR7Y&amp;">『Modern C++ Design』</a>の中間になる本を出そう。<br /></li>
-<li>執筆当時は、C++テンプレートの有名な書籍である<a href="https://www.amazon.co.jp/dp/0201734842?tag=faithandbrave-22&amp;camp=1027&amp;creative=7407&amp;linkCode=as4&amp;creativeASIN=0201734842&amp;adid=0YKDDDCSSPTSDY2MXQFN&amp;">『C++ Templates: The Complete Guide』</a>や<a href="https://www.amazon.co.jp/dp/B003XNTTBW?tag=faithandbrave-22&amp;camp=1027&amp;creative=7407&amp;linkCode=as4&amp;creativeASIN=B003XNTTBW&amp;adid=0ET2VW05FGP32TVE8HYD&amp;">『C++ Template Metaprogramming』</a>がまだ日本語訳されていなかったので、そのあたりもカバーしよう。</li>
-</ul>
+<p>C++入門書に記載されているテンプレートの解説と、難しいと言われているテンプレート技法の書籍<a href="https://www.amazon.co.jp/dp/4894714353?tag=faithandbrave-22&amp;camp=1027&amp;creative=7407&amp;linkCode=as4&amp;creativeASIN=4894714353&amp;adid=1P3B388D777W6VBNQR7Y&amp;">『Modern C++ Design』</a>の中間になる本を出そう、というのが初期のコンセプトです。<br />執筆当時は、C++テンプレートの有名な書籍である<a href="https://www.amazon.co.jp/dp/0201734842?tag=faithandbrave-22&amp;camp=1027&amp;creative=7407&amp;linkCode=as4&amp;creativeASIN=0201734842&amp;adid=0YKDDDCSSPTSDY2MXQFN&amp;">『C++ Templates: The Complete Guide』</a>や<a href="https://www.amazon.co.jp/dp/B003XNTTBW?tag=faithandbrave-22&amp;camp=1027&amp;creative=7407&amp;linkCode=as4&amp;creativeASIN=B003XNTTBW&amp;adid=0ET2VW05FGP32TVE8HYD&amp;">『C++ Template Metaprogramming』</a>がまだ日本語訳されていなかったので、そのあたりもカバーすることを目指しました。</p>
+<p>第12章「C++0xにおけるテンプレート」は、本書の付加価値として書きました。当時、策定中だったC++0xを追いかけている日本人はほとんどおらず、主に私が日本語で情報発信を行っていました。C++0xが真新しい情報であり、本書に注目を集める材料となる、というのがひとつの目的です。それに加えて、執筆中の本書がC++0xの策定によって、古くて役に立たなくなる、というのを防ぐ目的もあります。</p>
 <h2 id="担当分け">担当分け</h2>
 <p>第1章から第3章は、επιστημηさん、それ以降の第4章から第12章を私、というように担当を設定していました。著者の内部的には「基礎」と「発展」の二部構成にしてあります。<br />しかし実際には、επιστημηさんがお忙しい時期があったために、私も第2章と第3章をお手伝いしていました。</p>
 <h2 id="執筆期間">執筆期間</h2>
