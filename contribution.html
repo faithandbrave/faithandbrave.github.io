@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <link rel="stylesheet" href="./bootstrap-3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./theme.css">
+  <title>コントリビュート履歴(Contribution History) - Faith and Brave</title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="./index.html">Faith and Brave</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="http://faithandbrave.hateblo.jp/">Blog</a></li>
+          <li><a href="https://github.com/faithandbrave/site">GitHub Project</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-3">
+        <ul class="nav nav-pills nav-stacked">
+          <li class="active"><a href="./index.html">ホーム</a></li>
+          <li><a href="./profile.html">プロフィール</a></li>
+          <li><a href="./publication.html">発表資料や出版物</a></li>
+          <li><a href="./books.html">書籍紹介</a></li>
+          <li><a href="./contribution.html">コントリビューション履歴</a></li>
+        </ul>
+      </div>
+      <div class="col-xs-9">
+<h1 id="コントリビュート履歴contribution-history">コントリビュート履歴(Contribution History)</h1>
+<p>私がオープンソースソフトウェアにコントリビュートしてきた履歴を、以下にまとめます。</p>
+<h2 id="boost-c-libraries">Boost C++ Libraries</h2>
+<p><a href="http://www.boost.org/">http://www.boost.org/</a><br />C++の準標準ライブラリBoost。</p>
+<p>バグ報告、パッチ送付、機能リクエスト(bug report, send patch, feature request) <a href="https://svn.boost.org/trac/boost/query?status=assigned&amp;status=closed&amp;status=new&amp;status=reopened&amp;reporter=~Akira+Takahashi&amp;col=id&amp;col=summary&amp;col=status&amp;col=owner&amp;col=type&amp;col=milestone&amp;order=priority">query</a></p>
+<ol style="list-style-type: decimal">
+<li><a href="https://svn.boost.org/trac/boost/ticket/4388">#4388 apply failure : <code>map_keys</code>, <code>map_values</code> to array</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/4454">#4454 iterator range output format, and for IO adaptor</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/4623">#4623 <code>at()</code> member function to <code>ordered_index</code>/<code>hashed_index</code></a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/4814">#4814 add <code>initializer_list</code> constructor</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/5137">#5137 <code>any_range</code> : boost/range/concepts.hpp is missing</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/5142">#5142 <code>type_erased</code> feels unnecessary.</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/5314">#5314 wrong example in document</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/5319">#5319 <code>BOOST_HAS_VARIADIC_TMPL</code> defined in non-C++0x environment.</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/5324">#5324 tuple document is broken</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/5427">#5427 <code>endpoint</code> compile error in Windows CE 6.0</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/5428">#5428 No <code>&lt;ctime&gt;</code> function in Windows CE 6.0</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/5429">#5429 compile error in Windows CE 6.0(<code>std::abort</code>)</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/5430">#5430 compile error in Windows CE 6.0(<code>std::strerror</code>)</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/5431">#5431 compile error in Windows CE 6.0(interlocked)</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/5457">#5457 typo document : <code>is_stateless</code></a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/5458">#5458 typo document : <code>is_virtual_base_of</code></a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/5459">#5459 mistake document? : <code>boost::is_convertible</code></a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/5460">#5460 mistake document : <code>boost::conditional</code> include boost/type_traits.hpp</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/5461">#5461 mistake document : <code>boost::conditional</code> include by boost/type_traits.hpp</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/5491">#5491 invalid result for user defined type</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/5492">#5492 <code>property_tree</code> : now requires <code>locale</code></a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/5504">#5504 Regex : unused variable warning</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/5505">#5505 Format : <code>int</code> conversion to <code>bool</code> warning</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/5744">#5744 [geometry] mistake fusion adapt example</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/5747">#5747 [geometry] unused variable warning</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/5748">#5748 [geometry] need include <code>&lt;boost/foreach.hpp&gt;</code></a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/6061">#6061 <code>prim_minimum_spanning_tree</code> document : missing &quot;end for&quot;</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/6178">#6178 missing include covered_by.hpp</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/6183">#6183 [move][doc] missing return type</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/6371">#6371 [graph] compile error <code>directed_graph</code>/<code>undirected_graph</code></a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/6499">#6499 [move][doc] missing <code>at()</code> document</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/6679">#6679 [asio] request : repeat timer</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/6795">#6795 [type_traits] typo <code>decay</code> document</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/6825">#6825 [Heap] compile error : <code>fibonacci_heap::s_handle_from_iterator</code></a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/6875">#6875 [signals2] compilation error in <code>fnoexception</code></a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/6962">#6962 [function] missing document <code>function::assign()</code></a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/6967">#6967 [ICL] dead link in document</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/6990">#6990 [graph] <code>hash_setS</code> is not <code>std::hash_set</code></a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/6993">#6993 [graph] typo Bundled Properties document</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/7071">#7071 [config] duplicate macro documentation</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/7104">#7104 [algorithm] compile error <code>boyer_morre_search</code></a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/7662">#7662 need more description in reference doc</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/7686">#7686 missing namespace in docs</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/7721">#7721 [utility] want <code>get()</code> member function to <code>boost::initialized</code></a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/7771">#7771 [Graph] missing default argument in doc</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/7827">#7827 [range] cant compile <code>r | indexed</code> to range algorithm</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/7831">#7831 [lexical_cast] missing signature in doc</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/7976">#7976 [Atomic] undocument types and macros</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/8002">#8002 [Utility/string_ref] typo doc</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/8135">#8135 [lockfree] compile time capacity difference behavior</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/8292">#8292 [multiprecision] <code>et_on</code> with uBLAS become bad result</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/8957">#8957 [log] compile error: doc's stream format tutorial sample</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/9205">#9205 [variant or mpl] compilation error VC2013</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/9254">#9254 [random] mistake documentation : <code>kreutzer1986</code> size</a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/10090">#10090 [graph] missing documentation : member functions for bundled property in <code>adjacency_list</code></a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/10224">#10224 [property map] compilation error : <code>make_function_property_map</code></a><br /></li>
+<li><a href="https://svn.boost.org/trac/boost/ticket/10226">#10226 [interprocess] undocumented : <code>size_type</code></a><br /></li>
+<li><a href="https://github.com/boostorg/website/pull/36">GitHub website #36 fix minor typo in Boost.Geometry release note.</a><br /></li>
+<li><a href="https://github.com/boostorg/serialization/pull/6">GitHub serialization #6 add missing semicolon</a><br /></li>
+<li><a href="https://github.com/boostorg/date_time/pull/20">GitHub date_time #20 fix mistake doc example</a><br /></li>
+<li><a href="https://github.com/boostorg/graph/pull/25">GitHub graph #25 fix minor mistake</a><br /></li>
+<li><a href="https://github.com/boostorg/graph/pull/26">GitHub graph #26 <code>breadth_first_search</code> doc : fix figure number</a><br /></li>
+<li><a href="https://github.com/boostorg/website/pull/74">GitHub website #74 [1.58.0] Move release note : remove duplicate identifier</a></li>
+</ol>
+<h3 id="機能のコミットcommit-features">機能のコミット(Commit features)</h3>
+<ul>
+<li><a href="http://thread.gmane.org/gmane.comp.lib.boost.devel/212456/">[geometry] fusion adapt is missing</a>
+<ul>
+<li>Boost.Geometryに、Boost.Fusionにアダプトされた全ての型をアダプトする機構を送付<br /></li>
+</ul></li>
+<li><a href="http://thread.gmane.org/gmane.comp.lib.boost.devel/221179">[1.47.0][fusion] <code>fusion::copy</code> is undocumented?</a>
+<ul>
+<li><code>boost::fusion::copy()</code>アルゴリズムのドキュメントを送付</li>
+</ul></li>
+</ul>
+<h3 id="現在作業中の機能now-working">現在作業中の機能(Now working)</h3>
+<ul>
+<li>PStade.Ovenの機能をBoost.Rangeに移植(<a href="https://github.com/faithandbrave/OvenToBoost">OvenToBoost</a>)</li>
+</ul>
+<h2 id="c-standards-draft">C++ standards draft</h2>
+<p><a href="https://github.com/cplusplus/draft">https://github.com/cplusplus/draft</a><br />C++標準言語仕様のドラフト。</p>
+<h3 id="pull-request">pull request</h3>
+<ol style="list-style-type: decimal">
+<li><a href="https://github.com/cplusplus/draft/pull/27">#27 &quot;free functions&quot; to &quot;non member functions&quot;</a><br /></li>
+<li><a href="https://github.com/cplusplus/draft/pull/30">#30 fixed typo : <code>mersenne_twister_engine</code>'s template parameter</a><br /></li>
+<li><a href="https://github.com/cplusplus/draft/pull/164">#164 <code>weibull_distribution</code> : add missing semicolon</a><br /></li>
+<li><a href="https://github.com/cplusplus/draft/pull/171">#171 <code>linear_congruential_engine</code> : fix typo</a><br /></li>
+<li><a href="https://github.com/cplusplus/draft/pull/173">#173 <code>ranlux48</code> : fix typo</a><br /></li>
+<li><a href="https://github.com/cplusplus/draft/pull/253">#253 <code>basic_string::replace</code> description : fix missing words.</a><br /></li>
+<li><a href="https://github.com/cplusplus/draft/pull/264">#264 <code>function::swap</code> : remove <code>noexcept</code>.</a><br /></li>
+<li><a href="https://github.com/cplusplus/draft/pull/286">#286 <code>shared_ptr</code> : fix missing semicolon</a><br /></li>
+<li><a href="https://github.com/cplusplus/draft/pull/345">#345 fix missing <code>&lt;T&gt;</code> to <code>valarray::operator=(initializer_list&lt;T&gt;)</code></a></li>
+</ol>
+<h2 id="gcc---gnu-c-compiler">GCC - GNU C++ Compiler</h2>
+<p>GCCと、libstdc++(GCC付属のC++標準ライブラリ + α)へのバグ報告</p>
+<ol style="list-style-type: decimal">
+<li><a href="http://gcc.gnu.org/bugzilla/show_bug.cgi?id=53080">Bug 53080 - <code>tuple</code> interface to <code>std::array</code> doesn't check bounds</a><br /></li>
+<li><a href="http://gcc.gnu.org/bugzilla/show_bug.cgi?id=53515">Bug 53515 - <code>InputIterator</code> version <code>std::advance</code> needs negative check</a><br /></li>
+<li><a href="http://gcc.gnu.org/bugzilla/show_bug.cgi?id=55847">Bug 55847 - mistake <code>bad_weak_ptr::what()</code> message</a><br /></li>
+<li><a href="http://gcc.gnu.org/bugzilla/show_bug.cgi?id=58098">Bug 58098 - wrong return value of <code>normal_distribution::min()</code></a><br /></li>
+<li><a href="http://gcc.gnu.org/bugzilla/show_bug.cgi?id=58302">Bug 58302 - compilation error : <code>std::negative_binomial_distribution::operator(e, p)</code></a><br /></li>
+<li><a href="http://gcc.gnu.org/bugzilla/show_bug.cgi?id=59709">Bug 59709 - break program behavior with optimization</a><br /></li>
+<li><a href="https://gcc.gnu.org/bugzilla/show_bug.cgi?id=62119">Bug 62119 - dangling reference : <code>gslice_array</code>'s copy constructor</a><br /></li>
+<li><a href="https://gcc.gnu.org/bugzilla/show_bug.cgi?id=65790">Bug 65790 - compilation error : receive <code>std::index_sequnece</code></a></li>
+</ol>
+<h2 id="vmgsundown">vmg/sundown</h2>
+<p>GitHubで使われていたMarkDownパーサー</p>
+<ol style="list-style-type: decimal">
+<li><a href="https://github.com/vmg/sundown/issues/145">#145 Table parsing error</a></li>
+</ol>
+<h2 id="emscripten">Emscripten</h2>
+<p>C++をJavaScriptにコンパイルする、LLVMベースのコンパイラ。</p>
+<ol style="list-style-type: decimal">
+<li><a href="https://github.com/kripken/emscripten/pull/3005">#3005 Fix deadlink to release note</a></li>
+</ol>
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-3">
+          </div>
+          <div class="col-xs-9">
+            <hr>
+            <iframe src="http://rcm-fe.amazon-adsystem.com/e/cm?t=faithandbrave-22&o=9&p=48&l=ez&f=ifr&f=ifr" width="728" height="90" scrolling="no" marginwidth="0" marginheight="0" border="0" frameborder="0" style="border:none;"></iframe>
+            <iframe src="http://rcm-fe.amazon-adsystem.com/e/cm?t=faithandbrave-22&o=9&p=48&l=bn1&mode=books-jp&browse=466298&fc1=000000&lt1=_blank&lc1=3366FF&bg1=FFFFFF&f=ifr" marginwidth="0" marginheight="0" width="728" height="90" border="0" frameborder="0" style="border:none;" scrolling="no"></iframe>
+            <br/>
+            <br/>
+          </div>
+        </div>
+      </div>
+  </footer>
+</body>
+</html>
