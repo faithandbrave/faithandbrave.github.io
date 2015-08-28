@@ -196,7 +196,11 @@ ErrorValue error_code = GetError();
 }</code></pre>
 <p>例外は、いくつかのケースでプログラムをわかりやすくした。<br />C++では例外におけるオーバーヘッドが大きいため、サイズ制限などが厳しい環境では例外が使えない場合が多い。</p>
 <p>例外の問題点としては、補足ミスによるアプリケーションエラーが起こりやすいということと、どの関数がどの例外を投げうるのかがわかりにくいということだ。<br />Javaでは検査例外という機構を用意し、「この関数はこの例外を投げうる」ということを明示することができたが、近年のジェネリックプログラミングの流れにより、「この関数に渡されるあらゆる型の同名の関数が全てこの例外を投げうる」というのを明示するのは難しいと判断され、ScalaのようなJavaの後継言語では検査例外は採用されなかった。</p>
-<p>参照：<br />- <a href="http://www.slideshare.net/t_wada/exception-design-by-contract">例外設計における大罪</a><br />- <a href="https://gist.github.com/sunaot/6138546#file-exception-md">例外設計の話。</a></p>
+<p>参照：</p>
+<ul>
+<li><a href="http://www.slideshare.net/t_wada/exception-design-by-contract">例外設計における大罪</a><br /></li>
+<li><a href="https://gist.github.com/sunaot/6138546#file-exception-md">例外設計の話。</a></li>
+</ul>
 <h3 id="無効値の特別な表現"><a name="option" href="option">7. 無効値の特別な表現</a></h3>
 <p>C++, Haskell, Scalaのような静的型付け言語では、エラーが起こりえる型であることを明示する方向に進んだ。<br />ここでは「<a href="#pattern-match">8. パターンマッチ</a>」との差別化のため、C++における<code>boost::optional&lt;T&gt;</code>型で説明する。</p>
 <p>「<a href="#success-value-error-value">1. 正常値とエラー値</a>」で解説した「正常値／エラー値の仕様がライブラリによってまちまちで、仕様を調べないとミスが起こりやすい」という問題に対処するため、Boost C++ Librariesでは、<code>boost::optional&lt;T&gt;</code>という型を提供することにより、型によらない無効値の表現と、その型の値。この2種類が起こりえる型を表現した。<br />これにより、正常値、エラー値というものをライブラリの仕様ではなく、エラーが起こりえる型という形で、ヒューマンエラーの軽減に取り組んだ。</p>
@@ -244,7 +248,10 @@ b : Option[<span class="dt">int</span>] = None
     <span class="kw">case</span> _       =&gt; print <span class="st">&quot;error&quot;</span>
 }</code></pre>
 <p>ここでは、<code>case Some(x)</code>という式によって、「正常値だった場合には中身を取り出して変数xに代入する」ということをしている。<br />これによって、無効値を指しているのに中身を取り出そうと間違うことができなくなった。</p>
-<p>参考：<br />- <a href="http://togetter.com/li/6990">kinaba さんが Cryolite を洗脳してパターンマッチ厨に仕立て上げるリスト</a></p>
+<p>参考：</p>
+<ul>
+<li><a href="http://togetter.com/li/6990">kinaba さんが Cryolite を洗脳してパターンマッチ厨に仕立て上げるリスト</a></li>
+</ul>
 <h3 id="代数データ型"><a name="adt" href="#adt">9. 代数データ型</a></h3>
 <p>C++で論理値を表現するための<code>bool</code>型は、歴史的経緯もあって、<code>true</code>／<code>false</code>以外でも任意の<code>int</code>値を格納できてしまい、たびたび意図しない値の代入による問題が起こっていた。</p>
 <p>Haskellのような言語では、論理値は代数データ型と呼ばれる機能によって定義される。<br /><code>Bool</code>型を以下のように定義した場合、</p>
@@ -259,7 +266,10 @@ g = False
 h :: Bool
 h = <span class="dv">0</span>     -- エラー！</code></pre>
 <p>代数データ型は、「<code>0</code>という値が入りえない自然数の型」「要素が空になりえないリスト型」などに応用でき、型によって多くの保証を生み出すことに成功している。</p>
-<p>参照：<br />- <a href="http://faithandbrave.hateblo.jp/entry/20111201/1322718742">GADTs使ってみた - Faith and Brave - C++で遊ぼう</a></p>
+<p>参照：</p>
+<ul>
+<li><a href="http://faithandbrave.hateblo.jp/entry/20111201/1322718742">GADTs使ってみた - Faith and Brave - C++で遊ぼう</a></li>
+</ul>
 <p>他の言語でも、列挙型(<code>enum</code>)によってある程度表現できる。</p>
 <h3 id="either"><a name="either" href="either">10. Either</a></h3>
 <p>「<a href="#option">7. の無効値と有効値の統一的な表現</a>」により、エラーが起こりえる箇所がより明確となった。<br />だが、無効値には「無効値となった理由」という情報が欠落しているため、Haskellの<code>Maybe</code>モナドのような「失敗するかもしれない計算を連続で行い、失敗したらその後の計算を行わない」というアプローチにおいて、どの段階でどういう原因でエラーとなったのかがわからず、デバッグが困難であるという問題が起き始めた。</p>
@@ -285,7 +295,10 @@ h = <span class="dv">0</span>     -- エラー！</code></pre>
 </tr>
 </tbody>
 </table>
-<p>参照：<br />- <a href="http://faithandbrave.hateblo.jp/entry/2014/05/30/153325">エラー値と正常値を表す汎用的な型：<code>expected</code> - Faith and Brave - C++で遊ぼう</a></p>
+<p>参照：</p>
+<ul>
+<li><a href="http://faithandbrave.hateblo.jp/entry/2014/05/30/153325">エラー値と正常値を表す汎用的な型：<code>expected</code> - Faith and Brave - C++で遊ぼう</a></li>
+</ul>
 <h3 id="自動再起動">11. 自動再起動</h3>
 <p>now studying Erlang...</p>
 <h3 id="例外安全性">例外安全性</h3>
