@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <link rel="stylesheet" href="../bootstrap-3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../theme.css">
+  <title>C++でのテスト技法 - Faith and Brave</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">Faith and Brave</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="http://faithandbrave.hateblo.jp/">Blog</a></li>
+          <li><a href="https://github.com/faithandbrave/site">GitHub Project</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-3">
+        <ul class="nav nav-pills nav-stacked">
+          <li class="active"><a href="../index.html">ホーム</a></li>
+          <li><a href="../profile.html">プロフィール</a></li>
+          <li><a href="../publication.html">発表資料や出版物</a></li>
+          <li><a href="../books.html">書籍紹介</a></li>
+          <li><a href="../contribution.html">コントリビューション履歴</a></li>
+          <li><a href="../article.html">技術文書</a></li>
+        </ul>
+      </div>
+      <div class="col-xs-9">
+<h1 id="cでのテスト技法">C++でのテスト技法</h1>
+<h2 id="例外が投げられるかどうか">例外が投げられるかどうか</h2>
+<p>catchしたらテストOK。catchせず通る、もしくは想定した例外以外が投げられたらテスト失敗とする。</p>
+<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">try</span> {
+    f();
+    TEST(<span class="kw">false</span>);
+}
+<span class="kw">catch</span> (target_exception&amp;) {
+    TEST(<span class="kw">true</span>);
+}
+<span class="kw">catch</span> (...) {
+    TEST(<span class="kw">false</span>);
+}</code></pre>
+<h2 id="浮動小数点数の比較">浮動小数点数の比較</h2>
+<p><a href="https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/">Comparing Floating Point Numbers, 2012 Edition</a></p>
+<h2 id="シングルトン">シングルトン</h2>
+<p><a href="http://faithandbrave.hateblo.jp/entry/20101227/1293433067">シングルトンのテスト</a></p>
+<h2 id="ディレクトリの存在チェック">ディレクトリの存在チェック</h2>
+<p>テスト用のディレクトリをリポジトリに登録する場合、バージョン管理システムの管理ディレクトリが問題になる場合がある。<br />そのため、すべてのディレクトリを比較するのではなく、目的のディレクトリがすべて存在するかのチェックを行う。</p>
+<h2 id="テスト用公開インタフェース">テスト用公開インタフェース</h2>
+<p>testableなインタフェースのために、本来ブラックボックス化されるべきprivateインタフェースをpublicにしなければならない場合がある。<br />そういう設計を嫌う場合は、テスト用のクラスをfriend登録することができる。</p>
+<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">class</span> XTester;
+
+<span class="kw">class</span> X {
+    <span class="dt">int</span> id;
+    std::string name;
+
+    <span class="kw">friend</span> XTester;
+};
+
+<span class="kw">class</span> XTester {
+    X&amp; x;
+<span class="kw">public</span>:
+    XTester(X&amp; x) : x(x) {}
+
+    <span class="dt">int</span> get_id() <span class="dt">const</span> { <span class="kw">return</span> x.id; }
+    std::string get_name() <span class="dt">const</span> { <span class="kw">return</span> x.name; }
+};</code></pre>
+<h2 id="テスト用現在日時">テスト用現在日時</h2>
+<p>現在日時に依存するシステムはテストしにくい。<br />そのため、ライブラリによって提供される現在日の時取得関数を直接使用するのではなく、カスタマイゼーションポイントを用意し、ダミーの値をいつでも返せるようにしておくことで、testableにすることができる。</p>
+<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="ot">#ifdef DATE_TIME_CUSTOM_NOW_TIME</span>
+    std::time_t now_time_t();
+<span class="ot">#else</span>
+    <span class="kw">inline</span> std::time_t now_time_t()
+    {
+        std::time_t t;
+        std::time(&amp;t);
+        <span class="kw">return</span> t;
+    }
+<span class="ot">#endif</span></code></pre>
+<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="ot">#define DATE_TIME_CUSTOM_NOW_TIME</span>
+
+std::time_t now_time_t()
+{
+    std::tm t;
+    t.tm_year   = <span class="dv">2010</span> - <span class="dv">1900</span>;
+    t.tm_mon    = <span class="dv">12</span> - <span class="dv">1</span>;
+    t.tm_yday   = <span class="dv">353</span>;
+    t.tm_mday   = <span class="dv">20</span>;
+    t.tm_wday   = <span class="dv">1</span>;
+    t.tm_hour   = <span class="dv">15</span>;
+    t.tm_min    = <span class="dv">30</span>;
+    t.tm_sec    = <span class="dv">45</span>;
+    t.tm_isdst  = <span class="dv">0</span>;
+
+    <span class="kw">return</span> std::mktime(&amp;t);
+}</code></pre>
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-3">
+          </div>
+          <div class="col-xs-9">
+            <hr>
+            <iframe src="http://rcm-fe.amazon-adsystem.com/e/cm?t=faithandbrave-22&o=9&p=48&l=ez&f=ifr&f=ifr" width="728" height="90" scrolling="no" marginwidth="0" marginheight="0" border="0" frameborder="0" style="border:none;"></iframe>
+            <iframe src="http://rcm-fe.amazon-adsystem.com/e/cm?t=faithandbrave-22&o=9&p=48&l=bn1&mode=books-jp&browse=466298&fc1=000000&lt1=_blank&lc1=3366FF&bg1=FFFFFF&f=ifr" marginwidth="0" marginheight="0" width="728" height="90" border="0" frameborder="0" style="border:none;" scrolling="no"></iframe>
+            <br/>
+            <br/>
+          </div>
+        </div>
+      </div>
+  </footer>
+</body>
+</html>
