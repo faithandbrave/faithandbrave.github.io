@@ -9,23 +9,67 @@
   <title>エラーハンドリングの歴史 - Faith and Brave</title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
 </head>
 <body>
@@ -64,207 +108,230 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h1 id="エラーハンドリングの歴史">エラーハンドリングの歴史</h1>
 <h2 id="はじめに"><a name="introduction" href="#introduction">はじめに</a></h2>
 <p>2011年現在、ソフトウェアの複雑化により、プログラムは正常系の動作だけができればいい時代は終わっている。</p>
-<h3 id="ゲームにおけるエラーハンドリング">ゲームにおけるエラーハンドリング</h3>
-<p>スタンドアロンで動作するゲームが主流であったころ、ゲーム開発者はパフォーマンスのためにライブラリを含む全てのプログラムからエラー処理を省き、デバッグ時にassertで全てのバグを取り去り、正常系のみのプログラムをリリースしていた。現代のゲームは通信処理や、OS・コントローラからのイベントなどにより、正常系のみでは対処できずエラーハンドリングを正しく行う必要が出てきた。</p>
+<p>###ゲームにおけるエラーハンドリング<br />
+スタンドアロンで動作するゲームが主流であったころ、ゲーム開発者はパフォーマンスのためにライブラリを含む全てのプログラムからエラー処理を省き、デバッグ時にassertで全てのバグを取り去り、正常系のみのプログラムをリリースしていた。現代のゲームは通信処理や、OS・コントローラからのイベントなどにより、正常系のみでは対処できずエラーハンドリングを正しく行う必要が出てきた。</p>
 <h3 id="ソフトウェアにおけるエラーハンドリング">ソフトウェアにおけるエラーハンドリング</h3>
-<p>ソフトウェアは、元々マルチタスクやメモリの制限などにより、昔からエラーハンドリングは行われてきたが、<br />現代のソフトウェアはユーザー人口がとても多かったり、クレジットカードや個人情報の扱いなどで機密性がより求められるようになってきたため、<br />エラーハンドリングの重要性は一層高くなってきた。</p>
+<p>ソフトウェアは、元々マルチタスクやメモリの制限などにより、昔からエラーハンドリングは行われてきたが、<br />
+現代のソフトウェアはユーザー人口がとても多かったり、クレジットカードや個人情報の扱いなどで機密性がより求められるようになってきたため、<br />
+エラーハンドリングの重要性は一層高くなってきた。</p>
 <h2 id="エラーハンドリングは軽視されがち">エラーハンドリングは軽視されがち</h2>
-<p>エラーハンドリングは、多くの理由から軽視されがちだ。<br />たとえば以下のような理由が考えられる：</p>
+<p>エラーハンドリングは、多くの理由から軽視されがちだ。<br />
+たとえば以下のような理由が考えられる：</p>
 <ul>
-<li>正常系のプログラムを書くだけで手一杯で異常系を書く期間がとれない<br /></li>
-<li>予算の削りどころ(セキュリティやテストなども削りどころ)<br /></li>
+<li>正常系のプログラムを書くだけで手一杯で異常系を書く期間がとれない</li>
+<li>予算の削りどころ(セキュリティやテストなども削りどころ)</li>
 <li>想定不足</li>
 </ul>
 <h2 id="エラーハンドリングの歴史-1">エラーハンドリングの歴史</h2>
 <p>エラーハンドリングがどのように進化してきたかを見ていこう。</p>
 <h3 id="正常値とエラー値"><a name="sucess-value-error-value" href="#sucess-value-error-value">1. 正常値とエラー値</a></h3>
-<p>いつからかは把握していないが、昔は各ライブラリがそれぞれ異なる規定の下、「0を正常値と見なす」はたまた「1を正常値と見なす」「それ以外の値をエラー値とする」といった決まりごとを作った。<br />たとえば、Xライブラリ(仮)は「正常値であれば0、それ以外の値はエラーである」という仕様にした。</p>
-<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> f(<span class="dt">int</span> x)
-{
-    <span class="kw">if</span> (x == <span class="dv">1</span>)
-        <span class="kw">return</span> <span class="dv">0</span>;
-    <span class="kw">else</span>
-        <span class="kw">return</span> <span class="dv">1</span>;
-}</code></pre>
+<p>いつからかは把握していないが、昔は各ライブラリがそれぞれ異なる規定の下、「0を正常値と見なす」はたまた「1を正常値と見なす」「それ以外の値をエラー値とする」といった決まりごとを作った。<br />
+たとえば、Xライブラリ(仮)は「正常値であれば0、それ以外の値はエラーである」という仕様にした。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="dt">int</span> f(<span class="dt">int</span> x)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">{</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">    <span class="cf">if</span> (x == <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">        <span class="cf">return</span> <span class="dv">0</span>;</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">    <span class="cf">else</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">        <span class="cf">return</span> <span class="dv">1</span>;</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">}</a></code></pre></div>
 <p>ユーザーはその決まりごとをドキュメントで確認し、気をつけてコーディングする必要があった。</p>
-<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> result = f(<span class="dv">3</span>);
-<span class="kw">if</span> (result == <span class="dv">0</span>) {
-    <span class="co">// 正常系の処理</span>
-}
-<span class="kw">else</span> {
-    <span class="co">// 異常系の処理</span>
-}</code></pre>
-<p>この方法は、いろいろなライブラリを混ぜて使う場合に問題が起こりやすくなる。<br />Yライブラリ(仮)が「正常値であれば1、マイナス値はエラーである」という仕様にしたとしよう。</p>
-<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> g(x == <span class="dv">1</span>)
-{
-    <span class="kw">if</span> (x == <span class="dv">1</span>)
-        <span class="kw">return</span> <span class="dv">1</span>;
-    <span class="kw">else</span>
-        <span class="kw">return</span> -<span class="dv">65536</span>;
-}</code></pre>
-<p>このような、規定の異なる複数のライブラリを同時に使う場合、もしくは規定の異なる別のライブラリを使ったことがあるという経験が、<br />正常値と異常値の判定ミスというヒューマンエラーの原因になりえた。</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="dt">int</span> result = f(<span class="dv">3</span>);</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="cf">if</span> (result == <span class="dv">0</span>) {</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">    <span class="co">// 正常系の処理</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">    <span class="co">// 異常系の処理</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">}</a></code></pre></div>
+<p>この方法は、いろいろなライブラリを混ぜて使う場合に問題が起こりやすくなる。<br />
+Yライブラリ(仮)が「正常値であれば1、マイナス値はエラーである」という仕様にしたとしよう。</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="dt">int</span> g(x == <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">{</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">    <span class="cf">if</span> (x == <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">        <span class="cf">return</span> <span class="dv">1</span>;</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">    <span class="cf">else</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">        <span class="cf">return</span> <span class="dv">-65536</span>;</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">}</a></code></pre></div>
+<p>このような、規定の異なる複数のライブラリを同時に使う場合、もしくは規定の異なる別のライブラリを使ったことがあるという経験が、<br />
+正常値と異常値の判定ミスというヒューマンエラーの原因になりえた。</p>
 <h3 id="ヌルポインタ"><a name="null-pointer" href="#null-pointer">2. ヌルポインタ</a></h3>
-<p>主にC言語では、正常値として有効な値を指すポインタ、異常値としてヌルポインタを渡す／返す設計がよく行われていた。<br />ここでの問題は、C言語におけるプログラミングのイディオムとして、大きいデータのコピーによるオーバーヘッドを避けるために<br />データをなんでもかんでもポインタで渡していたことだ。<br />これのせいで、「この関数のパラメータはヌルポインタでありえていいのか」が非常にわかりにくかった。</p>
+<p>主にC言語では、正常値として有効な値を指すポインタ、異常値としてヌルポインタを渡す／返す設計がよく行われていた。<br />
+ここでの問題は、C言語におけるプログラミングのイディオムとして、大きいデータのコピーによるオーバーヘッドを避けるために<br />
+データをなんでもかんでもポインタで渡していたことだ。<br />
+これのせいで、「この関数のパラメータはヌルポインタでありえていいのか」が非常にわかりにくかった。</p>
 <p>また、ヌルポインタには「どこでどんな理由でヌルポインタになったのか」という情報がないため、エラーが追いにくい傾向がある。</p>
 <h3 id="アサート"><a name="assert" href="assert">3. アサート</a></h3>
-<p>アサートは、「この関数のパラメータがヌルポインタになることはあってはならない」というような表明を行うための機能だ。<br />これはデバッグ時に取り除くべきエラーを検知するために使用する。<br />この機能はリリース時には無効となるため、リリース時にも起こりえるエラーなのかどうかの設計判断が重要となる。</p>
-<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> f(<span class="dt">int</span>* p)
-{
-    assert(p != NULL);
-}</code></pre>
+<p>アサートは、「この関数のパラメータがヌルポインタになることはあってはならない」というような表明を行うための機能だ。<br />
+これはデバッグ時に取り除くべきエラーを検知するために使用する。<br />
+この機能はリリース時には無効となるため、リリース時にも起こりえるエラーなのかどうかの設計判断が重要となる。</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="dt">int</span> f(<span class="dt">int</span>* p)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">{</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">    assert(p != NULL);</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">}</a></code></pre></div>
 <h3 id="列挙値"><a name="enumerate" href="#enumerate">4. 列挙値</a></h3>
-<p>これまでは、エラーとなる理由を表現するためにエラーコードという整数値が使われてきた。<br />Windows APIの<code>GetLastError()</code>関数がその代表的な例だ。</p>
+<p>これまでは、エラーとなる理由を表現するためにエラーコードという整数値が使われてきた。<br />
+Windows APIの<code>GetLastError()</code>関数がその代表的な例だ。</p>
 <ul>
 <li><a href="http://homepage3.nifty.com/aokura/tips/e000000.html">GetLastError() メッセージ一覧</a></li>
 </ul>
 <p>しかし、単なる整数値では、ユーザーはまったく関係のない値との比較を書いてしまう可能性がある。</p>
-<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> error_code = GetError();
-
-<span class="kw">switch</span> (error_code) {
-    <span class="kw">case</span> <span class="dv">0</span>: <span class="kw">return</span> <span class="st">&quot;正常&quot;</span>;
-    <span class="kw">case</span> <span class="dv">1</span>: <span class="kw">return</span> <span class="st">&quot;接続失敗！&quot;</span>;
-    <span class="kw">case</span> <span class="dv">2</span>: <span class="kw">return</span> <span class="st">&quot;送信失敗！&quot;</span>;
-    <span class="kw">case</span> <span class="dv">3</span>: <span class="kw">return</span> <span class="st">&quot;受信失敗！&quot;</span>;
-
-    <span class="kw">default</span>: <span class="co">// 何が入ってくるかわからない</span>
-        <span class="kw">return</span> error_code + <span class="st">&quot;: 不明なエラー&quot;</span>;
-}</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="dt">int</span> error_code = GetError();</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="cf">switch</span> (error_code) {</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">    <span class="cf">case</span> <span class="dv">0</span>: <span class="cf">return</span> <span class="st">&quot;正常&quot;</span>;</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">    <span class="cf">case</span> <span class="dv">1</span>: <span class="cf">return</span> <span class="st">&quot;接続失敗！&quot;</span>;</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">    <span class="cf">case</span> <span class="dv">2</span>: <span class="cf">return</span> <span class="st">&quot;送信失敗！&quot;</span>;</a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">    <span class="cf">case</span> <span class="dv">3</span>: <span class="cf">return</span> <span class="st">&quot;受信失敗！&quot;</span>;</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9">    <span class="cf">default</span>: <span class="co">// 何が入ってくるかわからない</span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10">        <span class="cf">return</span> error_code + <span class="st">&quot;: 不明なエラー&quot;</span>;</a>
+<a class="sourceLine" id="cb5-11" data-line-number="11">}</a></code></pre></div>
 <p>そこで、列挙値というものが登場し、現れる可能性を列挙して、その範囲の値しか入り得ないようにすることができるようになった。</p>
-<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="kw">enum</span> ErrorValue {
-    Success,
-    ConnectError,
-    SendError,
-    ReceiveError
-};
-
-ErrorValue error_code = GetError();
-
-<span class="kw">switch</span> (error_code) {
-    <span class="kw">case</span> Success:      <span class="kw">return</span> <span class="st">&quot;正常&quot;</span>;
-    <span class="kw">case</span> ConnectError: <span class="kw">return</span> <span class="st">&quot;接続失敗！&quot;</span>;
-    <span class="kw">case</span> SendError:    <span class="kw">return</span> <span class="st">&quot;送信失敗！&quot;</span>;
-    <span class="kw">case</span> ReceiveError: <span class="kw">return</span> <span class="st">&quot;受信失敗！&quot;</span>;
-}</code></pre>
-<p>これによって、想定できる値をすべて挙げることができる場合において、<br />意図しない値が代入される可能性をなくすことができた。</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">enum</span> ErrorValue {</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">    Success,</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">    ConnectError,</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">    SendError,</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">    ReceiveError</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">};</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">ErrorValue error_code = GetError();</a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="cf">switch</span> (error_code) {</a>
+<a class="sourceLine" id="cb6-11" data-line-number="11">    <span class="cf">case</span> Success:      <span class="cf">return</span> <span class="st">&quot;正常&quot;</span>;</a>
+<a class="sourceLine" id="cb6-12" data-line-number="12">    <span class="cf">case</span> ConnectError: <span class="cf">return</span> <span class="st">&quot;接続失敗！&quot;</span>;</a>
+<a class="sourceLine" id="cb6-13" data-line-number="13">    <span class="cf">case</span> SendError:    <span class="cf">return</span> <span class="st">&quot;送信失敗！&quot;</span>;</a>
+<a class="sourceLine" id="cb6-14" data-line-number="14">    <span class="cf">case</span> ReceiveError: <span class="cf">return</span> <span class="st">&quot;受信失敗！&quot;</span>;</a>
+<a class="sourceLine" id="cb6-15" data-line-number="15">}</a></code></pre></div>
+<p>これによって、想定できる値をすべて挙げることができる場合において、<br />
+意図しない値が代入される可能性をなくすことができた。</p>
 <h3 id="論理値"><a name="boolean" href="#boolean">5. 論理値</a></h3>
-<p><code>bool</code>(C++), <code>boolean</code>(Java), <code>Bool</code>(Haskell)のように、いろんな言語で採用されている論理値と呼ばれるものは、正常値を表す値(<code>true</code>)と、異常値を表す値(<code>false</code>)の2つのみがありえる型とその値である。<br />これは、現代においてあらゆる環境でデフォルトで使用されるエラーハンドリングとなっている。</p>
-<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">bool</span> b1 = <span class="kw">true</span>;  <span class="co">// 正常値</span>
-<span class="dt">bool</span> b2 = <span class="kw">false</span>; <span class="co">// 異常値</span></code></pre>
+<p><code>bool</code>(C++), <code>boolean</code>(Java), <code>Bool</code>(Haskell)のように、いろんな言語で採用されている論理値と呼ばれるものは、正常値を表す値(<code>true</code>)と、異常値を表す値(<code>false</code>)の2つのみがありえる型とその値である。<br />
+これは、現代においてあらゆる環境でデフォルトで使用されるエラーハンドリングとなっている。</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="dt">bool</span> b1 = <span class="kw">true</span>;  <span class="co">// 正常値</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="dt">bool</span> b2 = <span class="kw">false</span>; <span class="co">// 異常値</span></a></code></pre></div>
 <p>論理値の問題点としては、異常値が「なぜ異常になったのか」という情報が持てないということだ。</p>
 <h3 id="例外"><a name="exception" href="exception">6. 例外</a></h3>
 <p>例外は、深い階層で発生したエラーを上位層でハンドリングするために、エラー値を伝搬していくのが手間であるという動機の元に導入された。</p>
-<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">bool</span> f()
-{
-    <span class="kw">return</span> <span class="kw">false</span>;
-}
-
-<span class="dt">bool</span> g()
-{
-    ...
-    <span class="dt">bool</span> result = f(); <span class="co">// 関数g()は、関数f()の結果を返す</span>
-    ...
-    <span class="kw">return</span> result;
-}
-
-<span class="dt">void</span> foo()
-{
-    <span class="dt">bool</span> result = g();
-}</code></pre>
-<p>このプログラムでは、深い階層のどこでエラーが発生したかわかりにくく、また関数<code>g()</code>の直接のエラーでないにも関わらず、関数<code>g()</code>は関数<code>f()</code>の結果を返す必要がある。<br />これは例外を使うと以下のように書ける：</p>
-<pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">void</span> f()
-{
-    <span class="kw">throw</span> runtime_error(<span class="st">&quot;fでエラーがでた&quot;</span>);
-}
-
-<span class="dt">void</span> g()
-{
-    ...
-    f();
-    ...
-}
-
-<span class="dt">void</span> foo()
-{
-    <span class="co">// エラーが起こりえるブロック</span>
-    <span class="kw">try</span> {
-        g();
-    }
-    <span class="co">// tryブロック内で例外が投げられたら捕捉する</span>
-    <span class="kw">catch</span> (runtime_error&amp; e) {
-        error_message(e.what()); <span class="co">// 例外メッセージを表示する</span>
-    }
-}</code></pre>
-<p>例外は、いくつかのケースでプログラムをわかりやすくした。<br />C++では例外におけるオーバーヘッドが大きいため、サイズ制限などが厳しい環境では例外が使えない場合が多い。</p>
-<p>例外の問題点としては、捕捉ミスによるアプリケーションエラーが起こりやすいということと、どの関数がどの例外を投げうるのかがわかりにくいということだ。<br />Javaでは検査例外という機構を用意し、「この関数はこの例外を投げうる」ということを明示することができたが、近年のジェネリックプログラミングの流れにより、「この関数に渡されるあらゆる型の同名の関数が全てこの例外を投げうる」というのを明示するのは難しいと判断され、ScalaのようなJavaの後継言語では検査例外は採用されなかった。</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="dt">bool</span> f()</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">{</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">    <span class="cf">return</span> <span class="kw">false</span>;</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="dt">bool</span> g()</a>
+<a class="sourceLine" id="cb8-7" data-line-number="7">{</a>
+<a class="sourceLine" id="cb8-8" data-line-number="8">    ...</a>
+<a class="sourceLine" id="cb8-9" data-line-number="9">    <span class="dt">bool</span> result = f(); <span class="co">// 関数g()は、関数f()の結果を返す</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10">    ...</a>
+<a class="sourceLine" id="cb8-11" data-line-number="11">    <span class="cf">return</span> result;</a>
+<a class="sourceLine" id="cb8-12" data-line-number="12">}</a>
+<a class="sourceLine" id="cb8-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="dt">void</span> foo()</a>
+<a class="sourceLine" id="cb8-15" data-line-number="15">{</a>
+<a class="sourceLine" id="cb8-16" data-line-number="16">    <span class="dt">bool</span> result = g();</a>
+<a class="sourceLine" id="cb8-17" data-line-number="17">}</a></code></pre></div>
+<p>このプログラムでは、深い階層のどこでエラーが発生したかわかりにくく、また関数<code>g()</code>の直接のエラーでないにも関わらず、関数<code>g()</code>は関数<code>f()</code>の結果を返す必要がある。<br />
+これは例外を使うと以下のように書ける：</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="dt">void</span> f()</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">{</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">    <span class="cf">throw</span> runtime_error(<span class="st">&quot;fでエラーがでた&quot;</span>);</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="dt">void</span> g()</a>
+<a class="sourceLine" id="cb9-7" data-line-number="7">{</a>
+<a class="sourceLine" id="cb9-8" data-line-number="8">    ...</a>
+<a class="sourceLine" id="cb9-9" data-line-number="9">    f();</a>
+<a class="sourceLine" id="cb9-10" data-line-number="10">    ...</a>
+<a class="sourceLine" id="cb9-11" data-line-number="11">}</a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="dt">void</span> foo()</a>
+<a class="sourceLine" id="cb9-14" data-line-number="14">{</a>
+<a class="sourceLine" id="cb9-15" data-line-number="15">    <span class="co">// エラーが起こりえるブロック</span></a>
+<a class="sourceLine" id="cb9-16" data-line-number="16">    <span class="cf">try</span> {</a>
+<a class="sourceLine" id="cb9-17" data-line-number="17">        g();</a>
+<a class="sourceLine" id="cb9-18" data-line-number="18">    }</a>
+<a class="sourceLine" id="cb9-19" data-line-number="19">    <span class="co">// tryブロック内で例外が投げられたら捕捉する</span></a>
+<a class="sourceLine" id="cb9-20" data-line-number="20">    <span class="cf">catch</span> (runtime_error&amp; e) {</a>
+<a class="sourceLine" id="cb9-21" data-line-number="21">        error_message(e.what()); <span class="co">// 例外メッセージを表示する</span></a>
+<a class="sourceLine" id="cb9-22" data-line-number="22">    }</a>
+<a class="sourceLine" id="cb9-23" data-line-number="23">}</a></code></pre></div>
+<p>例外は、いくつかのケースでプログラムをわかりやすくした。<br />
+C++では例外におけるオーバーヘッドが大きいため、サイズ制限などが厳しい環境では例外が使えない場合が多い。</p>
+<p>例外の問題点としては、捕捉ミスによるアプリケーションエラーが起こりやすいということと、どの関数がどの例外を投げうるのかがわかりにくいということだ。<br />
+Javaでは検査例外という機構を用意し、「この関数はこの例外を投げうる」ということを明示することができたが、近年のジェネリックプログラミングの流れにより、「この関数に渡されるあらゆる型の同名の関数が全てこの例外を投げうる」というのを明示するのは難しいと判断され、ScalaのようなJavaの後継言語では検査例外は採用されなかった。</p>
 <p>参照：</p>
 <ul>
-<li><a href="http://www.slideshare.net/t_wada/exception-design-by-contract">例外設計における大罪</a><br /></li>
+<li><a href="http://www.slideshare.net/t_wada/exception-design-by-contract">例外設計における大罪</a></li>
 <li><a href="https://gist.github.com/sunaot/6138546#file-exception-md">例外設計の話。</a></li>
 </ul>
 <h3 id="無効値の特別な表現"><a name="option" href="option">7. 無効値の特別な表現</a></h3>
-<p>C++, Haskell, Scalaのような静的型付け言語では、エラーが起こりえる型であることを明示する方向に進んだ。<br />ここでは「<a href="#pattern-match">8. パターンマッチ</a>」との差別化のため、C++における<code>boost::optional&lt;T&gt;</code>型で説明する。</p>
-<p>「<a href="#success-value-error-value">1. 正常値とエラー値</a>」で解説した「正常値／エラー値の仕様がライブラリによってまちまちで、仕様を調べないとミスが起こりやすい」という問題に対処するため、Boost C++ Librariesでは、<code>boost::optional&lt;T&gt;</code>という型を提供することにより、型によらない無効値の表現と、その型の値。この2種類が起こりえる型を表現した。<br />これにより、正常値、エラー値というものをライブラリの仕様ではなく、エラーが起こりえる型という形で、ヒューマンエラーの軽減に取り組んだ。</p>
-<pre class="sourceCode cpp"><code class="sourceCode cpp">boost::optional&lt;<span class="dt">int</span>&gt; a = <span class="dv">1</span>; <span class="co">// int型の値全てが正常値</span>
-boost::optional&lt;<span class="dt">int</span>&gt; b = boost::none; <span class="co">// noneが無効値</span>
-
-<span class="kw">if</span> (a) { <span class="co">// 正常値かどうかの判定</span>
-    <span class="dt">int</span> x = a.get(); <span class="co">// 中身を取り出す</span>
-}</code></pre>
+<p>C++, Haskell, Scalaのような静的型付け言語では、エラーが起こりえる型であることを明示する方向に進んだ。<br />
+ここでは「<a href="#pattern-match">8. パターンマッチ</a>」との差別化のため、C++における<code>boost::optional&lt;T&gt;</code>型で説明する。</p>
+<p>「<a href="#success-value-error-value">1. 正常値とエラー値</a>」で解説した「正常値／エラー値の仕様がライブラリによってまちまちで、仕様を調べないとミスが起こりやすい」という問題に対処するため、Boost C++ Librariesでは、<code>boost::optional&lt;T&gt;</code>という型を提供することにより、型によらない無効値の表現と、その型の値。この2種類が起こりえる型を表現した。<br />
+これにより、正常値、エラー値というものをライブラリの仕様ではなく、エラーが起こりえる型という形で、ヒューマンエラーの軽減に取り組んだ。</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="ex">boost::</span>optional&lt;<span class="dt">int</span>&gt; a = <span class="dv">1</span>; <span class="co">// int型の値全てが正常値</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="ex">boost::</span>optional&lt;<span class="dt">int</span>&gt; b = <span class="ex">boost::</span>none; <span class="co">// noneが無効値</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="cf">if</span> (a) { <span class="co">// 正常値かどうかの判定</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">    <span class="dt">int</span> x = a.get(); <span class="co">// 中身を取り出す</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6">}</a></code></pre></div>
 <p>代表的な例：</p>
 <table>
 <thead>
 <tr class="header">
-<th align="left">言語</th>
-<th align="left">表現</th>
+<th>言語</th>
+<th>表現</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">C++</td>
-<td align="left"><code>boost::optional&lt;T&gt;</code></td>
+<td>C++</td>
+<td><code>boost::optional&lt;T&gt;</code></td>
 </tr>
 <tr class="even">
-<td align="left">Haskell</td>
-<td align="left"><code>Maybe</code></td>
+<td>Haskell</td>
+<td><code>Maybe</code></td>
 </tr>
 <tr class="odd">
-<td align="left">Scala</td>
-<td align="left"><code>Option</code></td>
+<td>Scala</td>
+<td><code>Option</code></td>
 </tr>
 <tr class="even">
-<td align="left">C#</td>
-<td align="left">null許容型</td>
+<td>C#</td>
+<td>null許容型</td>
 </tr>
 </tbody>
 </table>
 <h3 id="パターンマッチ"><a name="pattern-match" href="pattern-match">8. パターンマッチ</a></h3>
-<p>パターンマッチは、 「[7. 無効値の特別な表現][#option]」をさらに進化させ、型の判別と分解を同時に行うことができる。<br /><code>boost::optional&lt;T&gt;</code>型は、値が正常値かどうかの判定と、中身を取り出す操作がわかれているため、無効値を指した状態で中身を取り出すとアプリケーションエラーになるだろう。</p>
-<p>関数型言語一般で採用されているパターンマッチと呼ばれる機構は、この判定と取り出しを同時に行うことで、ヒューマンエラーを除去することができる。<br />Scala言語の<code>Option</code>型で例示する：</p>
-<pre class="sourceCode scala"><code class="sourceCode scala">a : Option[<span class="dt">int</span>] = Some(<span class="dv">1</span>)
-b : Option[<span class="dt">int</span>] = None
-
-<span class="kw">match</span> (a) {
-    <span class="kw">case</span> Some(x) =&gt; print x
-    <span class="kw">case</span> _       =&gt; print <span class="st">&quot;error&quot;</span>
-}</code></pre>
-<p>ここでは、<code>case Some(x)</code>という式によって、「正常値だった場合には中身を取り出して変数xに代入する」ということをしている。<br />これによって、無効値を指しているのに中身を取り出そうと間違うことができなくなった。</p>
+<p>パターンマッチは、 「[7. 無効値の特別な表現][#option]」をさらに進化させ、型の判別と分解を同時に行うことができる。<br />
+<code>boost::optional&lt;T&gt;</code>型は、値が正常値かどうかの判定と、中身を取り出す操作がわかれているため、無効値を指した状態で中身を取り出すとアプリケーションエラーになるだろう。</p>
+<p>関数型言語一般で採用されているパターンマッチと呼ばれる機構は、この判定と取り出しを同時に行うことで、ヒューマンエラーを除去することができる。<br />
+Scala言語の<code>Option</code>型で例示する：</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode scala"><code class="sourceCode scala"><a class="sourceLine" id="cb11-1" data-line-number="1">a : Option[<span class="dt">int</span>] = Some(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">b : Option[<span class="dt">int</span>] = None</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="kw">match</span> (a) {</a>
+<a class="sourceLine" id="cb11-5" data-line-number="5">    <span class="kw">case</span> Some(x) =&gt; print x</a>
+<a class="sourceLine" id="cb11-6" data-line-number="6">    <span class="kw">case</span> _       =&gt; print <span class="st">&quot;error&quot;</span></a>
+<a class="sourceLine" id="cb11-7" data-line-number="7">}</a></code></pre></div>
+<p>ここでは、<code>case Some(x)</code>という式によって、「正常値だった場合には中身を取り出して変数xに代入する」ということをしている。<br />
+これによって、無効値を指しているのに中身を取り出そうと間違うことができなくなった。</p>
 <p>参考：</p>
 <ul>
 <li><a href="http://togetter.com/li/6990">kinaba さんが Cryolite を洗脳してパターンマッチ厨に仕立て上げるリスト</a></li>
 </ul>
 <h3 id="代数データ型"><a name="adt" href="#adt">9. 代数データ型</a></h3>
 <p>C++で論理値を表現するための<code>bool</code>型は、歴史的経緯もあって、<code>true</code>／<code>false</code>以外でも任意の<code>int</code>値を格納できてしまい、たびたび意図しない値の代入による問題が起こっていた。</p>
-<p>Haskellのような言語では、論理値は代数データ型と呼ばれる機能によって定義される。<br /><code>Bool</code>型を以下のように定義した場合、</p>
-<pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Bool</span> <span class="fu">=</span> <span class="kw">True</span> <span class="fu">|</span> <span class="kw">False</span></code></pre>
+<p>Haskellのような言語では、論理値は代数データ型と呼ばれる機能によって定義される。<br />
+<code>Bool</code>型を以下のように定義した場合、</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">data</span> <span class="dt">Bool</span> <span class="fu">=</span> <span class="dt">True</span> <span class="fu">|</span> <span class="dt">False</span></a></code></pre></div>
 <p><code>Bool</code>型は、「<code>True</code>」と「<code>False</code>」という2つの値以外は、決して格納できない型となる。</p>
-<pre class="sourceCode cpp"><code class="sourceCode cpp">f :: Bool
-f = True
- 
-g :: Bool
-g = False
- 
-h :: Bool
-h = <span class="dv">0</span>     -- エラー！</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb13-1" data-line-number="1">f :: Bool</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">f = True</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"> </a>
+<a class="sourceLine" id="cb13-4" data-line-number="4">g :: Bool</a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">g = False</a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"> </a>
+<a class="sourceLine" id="cb13-7" data-line-number="7">h :: Bool</a>
+<a class="sourceLine" id="cb13-8" data-line-number="8">h = <span class="dv">0</span>     -- エラー！</a></code></pre></div>
 <p>代数データ型は、「<code>0</code>という値が入りえない自然数の型」「要素が空になりえないリスト型」などに応用でき、型によって多くの保証を生み出すことに成功している。</p>
 <p>参照：</p>
 <ul>
@@ -272,26 +339,28 @@ h = <span class="dv">0</span>     -- エラー！</code></pre>
 </ul>
 <p>他の言語でも、列挙型(<code>enum</code>)によってある程度表現できる。</p>
 <h3 id="either"><a name="either" href="either">10. Either</a></h3>
-<p>「<a href="#option">7. の無効値と有効値の統一的な表現</a>」により、エラーが起こりえる箇所がより明確となった。<br />だが、無効値には「無効値となった理由」という情報が欠落しているため、Haskellの<code>Maybe</code>モナドのような「失敗するかもしれない計算を連続で行い、失敗したらその後の計算を行わない」というアプローチにおいて、どの段階でどういう原因でエラーとなったのかがわからず、デバッグが困難であるという問題が起き始めた。</p>
+<p>「<a href="#option">7. の無効値と有効値の統一的な表現</a>」により、エラーが起こりえる箇所がより明確となった。<br />
+だが、無効値には「無効値となった理由」という情報が欠落しているため、Haskellの<code>Maybe</code>モナドのような「失敗するかもしれない計算を連続で行い、失敗したらその後の計算を行わない」というアプローチにおいて、どの段階でどういう原因でエラーとなったのかがわからず、デバッグが困難であるという問題が起き始めた。</p>
 <p>参考： <a href="http://blog.dbpatterson.com/post/9528836599">data Maybe — harmful?</a></p>
-<p>そこで、エラー情報付きの無効値を表現する方法として、<code>Either</code>という型が多くの言語でライブラリとして導入されるようになった。<br /><code>Either</code>は、「<code>Left</code>か<code>Right</code>どちらかにデータが入っている」というエラー以外の目的にも使用できる普遍的な型ではあるが、エラーハンドリングに使うのが一般的である。</p>
+<p>そこで、エラー情報付きの無効値を表現する方法として、<code>Either</code>という型が多くの言語でライブラリとして導入されるようになった。<br />
+<code>Either</code>は、「<code>Left</code>か<code>Right</code>どちらかにデータが入っている」というエラー以外の目的にも使用できる普遍的な型ではあるが、エラーハンドリングに使うのが一般的である。</p>
 <p>有効値が入っていたら「正しい」を意味する<code>Right</code>にデータが入り、無効値が入っていたらLeftにエラーとなった理由を入れる、という文化がある。</p>
 <p>代表的な例：</p>
 <table>
 <thead>
 <tr class="header">
-<th align="left">言語</th>
-<th align="left">型</th>
+<th>言語</th>
+<th>型</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Haskell</td>
-<td align="left"><code>Either</code></td>
+<td>Haskell</td>
+<td><code>Either</code></td>
 </tr>
 <tr class="even">
-<td align="left">C++</td>
-<td align="left"><code>expected</code></td>
+<td>C++</td>
+<td><code>expected</code></td>
 </tr>
 </tbody>
 </table>
@@ -300,7 +369,7 @@ h = <span class="dv">0</span>     -- エラー！</code></pre>
 <li><a href="http://faithandbrave.hateblo.jp/entry/2014/05/30/153325">エラー値と正常値を表す汎用的な型：<code>expected</code> - Faith and Brave - C++で遊ぼう</a></li>
 </ul>
 <h3 id="自動再起動">11. 自動再起動</h3>
-<p>now studying Erlang...</p>
+<p>now studying Erlang…</p>
 <h3 id="例外安全性">例外安全性</h3>
 <h2 id="参照">参照</h2>
 <ul>
