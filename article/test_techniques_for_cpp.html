@@ -9,26 +9,27 @@
   <title>C++でのテスト技法 - Faith and Brave</title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -37,9 +38,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -108,16 +109,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1 id="cでのテスト技法">C++でのテスト技法</h1>
 <h2 id="例外が投げられるかどうか">例外が投げられるかどうか</h2>
 <p>catchしたらテストOK。catchせず通る、もしくは想定した例外以外が投げられたらテスト失敗とする。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="cf">try</span> {</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">    f();</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">    TEST(<span class="kw">false</span>);</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="cf">catch</span> (target_exception&amp;) {</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">    TEST(<span class="kw">true</span>);</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">}</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="cf">catch</span> (...) {</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">    TEST(<span class="kw">false</span>);</a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">}</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a><span class="cf">try</span> {</span>
+<span id="cb1-2"><a href="#cb1-2"></a>    f();</span>
+<span id="cb1-3"><a href="#cb1-3"></a>    TEST(<span class="kw">false</span>);</span>
+<span id="cb1-4"><a href="#cb1-4"></a>}</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="cf">catch</span> (target_exception&amp;) {</span>
+<span id="cb1-6"><a href="#cb1-6"></a>    TEST(<span class="kw">true</span>);</span>
+<span id="cb1-7"><a href="#cb1-7"></a>}</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="cf">catch</span> (...) {</span>
+<span id="cb1-9"><a href="#cb1-9"></a>    TEST(<span class="kw">false</span>);</span>
+<span id="cb1-10"><a href="#cb1-10"></a>}</span></code></pre></div>
 <h2 id="浮動小数点数の比較">浮動小数点数の比較</h2>
 <p><a href="https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/">Comparing Floating Point Numbers, 2012 Edition</a></p>
 <h2 id="シングルトン">シングルトン</h2>
@@ -128,53 +129,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 id="テスト用公開インタフェース">テスト用公開インタフェース</h2>
 <p>testableなインタフェースのために、本来ブラックボックス化されるべきprivateインタフェースをpublicにしなければならない場合がある。<br />
 そういう設計を嫌う場合は、テスト用のクラスをfriend登録することができる。</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">class</span> XTester;</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">class</span> X {</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">    <span class="dt">int</span> id;</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">    <span class="bu">std::</span>string name;</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">    <span class="kw">friend</span> XTester;</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">};</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="kw">class</span> XTester {</a>
-<a class="sourceLine" id="cb2-11" data-line-number="11">    X&amp; x;</a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="kw">public</span>:</a>
-<a class="sourceLine" id="cb2-13" data-line-number="13">    XTester(X&amp; x) : x(x) {}</a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15">    <span class="dt">int</span> get_id() <span class="at">const</span> { <span class="cf">return</span> x.id; }</a>
-<a class="sourceLine" id="cb2-16" data-line-number="16">    <span class="bu">std::</span>string get_name() <span class="at">const</span> { <span class="cf">return</span> x.name; }</a>
-<a class="sourceLine" id="cb2-17" data-line-number="17">};</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">class</span> XTester;</span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">class</span> X {</span>
+<span id="cb2-4"><a href="#cb2-4"></a>    <span class="dt">int</span> id;</span>
+<span id="cb2-5"><a href="#cb2-5"></a>    <span class="bu">std::</span>string name;</span>
+<span id="cb2-6"><a href="#cb2-6"></a></span>
+<span id="cb2-7"><a href="#cb2-7"></a>    <span class="kw">friend</span> XTester;</span>
+<span id="cb2-8"><a href="#cb2-8"></a>};</span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="kw">class</span> XTester {</span>
+<span id="cb2-11"><a href="#cb2-11"></a>    X&amp; x;</span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="kw">public</span>:</span>
+<span id="cb2-13"><a href="#cb2-13"></a>    XTester(X&amp; x) : x(x) {}</span>
+<span id="cb2-14"><a href="#cb2-14"></a></span>
+<span id="cb2-15"><a href="#cb2-15"></a>    <span class="dt">int</span> get_id() <span class="at">const</span> { <span class="cf">return</span> x.id; }</span>
+<span id="cb2-16"><a href="#cb2-16"></a>    <span class="bu">std::</span>string get_name() <span class="at">const</span> { <span class="cf">return</span> x.name; }</span>
+<span id="cb2-17"><a href="#cb2-17"></a>};</span></code></pre></div>
 <h2 id="テスト用現在日時">テスト用現在日時</h2>
 <p>現在日時に依存するシステムはテストしにくい。<br />
 そのため、ライブラリによって提供される現在日の時取得関数を直接使用するのではなく、カスタマイゼーションポイントを用意し、ダミーの値をいつでも返せるようにしておくことで、testableにすることができる。</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="pp">#ifdef DATE_TIME_CUSTOM_NOW_TIME</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">    <span class="bu">std::</span>time_t <span class="dt">now_time_t</span>();</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="pp">#else</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">    <span class="kw">inline</span> <span class="bu">std::</span>time_t <span class="dt">now_time_t</span>()</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">    {</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">        <span class="bu">std::</span>time_t t;</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">        <span class="bu">std::</span>time(&amp;t);</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">        <span class="cf">return</span> t;</a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">    }</a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="pp">#endif</span></a></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="pp">#define DATE_TIME_CUSTOM_NOW_TIME</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="bu">std::</span>time_t <span class="dt">now_time_t</span>()</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">{</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">    <span class="bu">std::</span>tm t;</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">    t.tm_year   = <span class="dv">2010</span> - <span class="dv">1900</span>;</a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">    t.tm_mon    = <span class="dv">12</span> - <span class="dv">1</span>;</a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">    t.tm_yday   = <span class="dv">353</span>;</a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">    t.tm_mday   = <span class="dv">20</span>;</a>
-<a class="sourceLine" id="cb4-10" data-line-number="10">    t.tm_wday   = <span class="dv">1</span>;</a>
-<a class="sourceLine" id="cb4-11" data-line-number="11">    t.tm_hour   = <span class="dv">15</span>;</a>
-<a class="sourceLine" id="cb4-12" data-line-number="12">    t.tm_min    = <span class="dv">30</span>;</a>
-<a class="sourceLine" id="cb4-13" data-line-number="13">    t.tm_sec    = <span class="dv">45</span>;</a>
-<a class="sourceLine" id="cb4-14" data-line-number="14">    t.tm_isdst  = <span class="dv">0</span>;</a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16">    <span class="cf">return</span> <span class="bu">std::</span>mktime(&amp;t);</a>
-<a class="sourceLine" id="cb4-17" data-line-number="17">}</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1"></a><span class="pp">#ifdef DATE_TIME_CUSTOM_NOW_TIME</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>    <span class="bu">std::</span>time_t <span class="dt">now_time_t</span>();</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="pp">#else</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>    <span class="kw">inline</span> <span class="bu">std::</span>time_t <span class="dt">now_time_t</span>()</span>
+<span id="cb3-5"><a href="#cb3-5"></a>    {</span>
+<span id="cb3-6"><a href="#cb3-6"></a>        <span class="bu">std::</span>time_t t;</span>
+<span id="cb3-7"><a href="#cb3-7"></a>        <span class="bu">std::</span>time(&amp;t);</span>
+<span id="cb3-8"><a href="#cb3-8"></a>        <span class="cf">return</span> t;</span>
+<span id="cb3-9"><a href="#cb3-9"></a>    }</span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="pp">#endif</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1"></a><span class="pp">#define DATE_TIME_CUSTOM_NOW_TIME</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="bu">std::</span>time_t <span class="dt">now_time_t</span>()</span>
+<span id="cb4-4"><a href="#cb4-4"></a>{</span>
+<span id="cb4-5"><a href="#cb4-5"></a>    <span class="bu">std::</span>tm t;</span>
+<span id="cb4-6"><a href="#cb4-6"></a>    t.tm_year   = <span class="dv">2010</span> - <span class="dv">1900</span>;</span>
+<span id="cb4-7"><a href="#cb4-7"></a>    t.tm_mon    = <span class="dv">12</span> - <span class="dv">1</span>;</span>
+<span id="cb4-8"><a href="#cb4-8"></a>    t.tm_yday   = <span class="dv">353</span>;</span>
+<span id="cb4-9"><a href="#cb4-9"></a>    t.tm_mday   = <span class="dv">20</span>;</span>
+<span id="cb4-10"><a href="#cb4-10"></a>    t.tm_wday   = <span class="dv">1</span>;</span>
+<span id="cb4-11"><a href="#cb4-11"></a>    t.tm_hour   = <span class="dv">15</span>;</span>
+<span id="cb4-12"><a href="#cb4-12"></a>    t.tm_min    = <span class="dv">30</span>;</span>
+<span id="cb4-13"><a href="#cb4-13"></a>    t.tm_sec    = <span class="dv">45</span>;</span>
+<span id="cb4-14"><a href="#cb4-14"></a>    t.tm_isdst  = <span class="dv">0</span>;</span>
+<span id="cb4-15"><a href="#cb4-15"></a></span>
+<span id="cb4-16"><a href="#cb4-16"></a>    <span class="cf">return</span> <span class="bu">std::</span>mktime(&amp;t);</span>
+<span id="cb4-17"><a href="#cb4-17"></a>}</span></code></pre></div>
       </div>
     </div>
   </div>
