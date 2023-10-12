@@ -12,6 +12,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -128,30 +129,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 id="正常値とエラー値"><a name="sucess-value-error-value" href="#sucess-value-error-value">1. 正常値とエラー値</a></h3>
 <p>いつからかは把握していないが、昔は各ライブラリがそれぞれ異なる規定の下、「0を正常値と見なす」はたまた「1を正常値と見なす」「それ以外の値をエラー値とする」といった決まりごとを作った。<br />
 たとえば、Xライブラリ(仮)は「正常値であれば0、それ以外の値はエラーである」という仕様にした。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a><span class="dt">int</span> f(<span class="dt">int</span> x)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>{</span>
-<span id="cb1-3"><a href="#cb1-3"></a>    <span class="cf">if</span> (x == <span class="dv">1</span>)</span>
-<span id="cb1-4"><a href="#cb1-4"></a>        <span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb1-5"><a href="#cb1-5"></a>    <span class="cf">else</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a>        <span class="cf">return</span> <span class="dv">1</span>;</span>
-<span id="cb1-7"><a href="#cb1-7"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> f(<span class="dt">int</span> x)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (x == <span class="dv">1</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span>;</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span>;</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>ユーザーはその決まりごとをドキュメントで確認し、気をつけてコーディングする必要があった。</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1"></a><span class="dt">int</span> result = f(<span class="dv">3</span>);</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="cf">if</span> (result == <span class="dv">0</span>) {</span>
-<span id="cb2-3"><a href="#cb2-3"></a>    <span class="co">// 正常系の処理</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a>}</span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="cf">else</span> {</span>
-<span id="cb2-6"><a href="#cb2-6"></a>    <span class="co">// 異常系の処理</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> result = f(<span class="dv">3</span>);</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (result == <span class="dv">0</span>) {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 正常系の処理</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> {</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 異常系の処理</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>この方法は、いろいろなライブラリを混ぜて使う場合に問題が起こりやすくなる。<br />
 Yライブラリ(仮)が「正常値であれば1、マイナス値はエラーである」という仕様にしたとしよう。</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1"></a><span class="dt">int</span> g(x == <span class="dv">1</span>)</span>
-<span id="cb3-2"><a href="#cb3-2"></a>{</span>
-<span id="cb3-3"><a href="#cb3-3"></a>    <span class="cf">if</span> (x == <span class="dv">1</span>)</span>
-<span id="cb3-4"><a href="#cb3-4"></a>        <span class="cf">return</span> <span class="dv">1</span>;</span>
-<span id="cb3-5"><a href="#cb3-5"></a>    <span class="cf">else</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a>        <span class="cf">return</span> -<span class="dv">65536</span>;</span>
-<span id="cb3-7"><a href="#cb3-7"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> g(x == <span class="dv">1</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (x == <span class="dv">1</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span>;</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> -<span class="dv">65536</span>;</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>このような、規定の異なる複数のライブラリを同時に使う場合、もしくは規定の異なる別のライブラリを使ったことがあるという経験が、<br />
 正常値と異常値の判定ミスというヒューマンエラーの原因になりえた。</p>
 <h3 id="ヌルポインタ"><a name="null-pointer" href="#null-pointer">2. ヌルポインタ</a></h3>
@@ -164,10 +165,10 @@ Yライブラリ(仮)が「正常値であれば1、マイナス値はエラー�
 <p>アサートは、「この関数のパラメータがヌルポインタになることはあってはならない」というような表明を行うための機能だ。<br />
 これはデバッグ時に取り除くべきエラーを検知するために使用する。<br />
 この機能はリリース時には無効となるため、リリース時にも起こりえるエラーなのかどうかの設計判断が重要となる。</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1"></a><span class="dt">int</span> f(<span class="dt">int</span>* p)</span>
-<span id="cb4-2"><a href="#cb4-2"></a>{</span>
-<span id="cb4-3"><a href="#cb4-3"></a>    <span class="ot">assert</span>(p != NULL);</span>
-<span id="cb4-4"><a href="#cb4-4"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> f(<span class="dt">int</span>* p)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="ot">assert</span>(p != NULL);</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <h3 id="列挙値"><a name="enumerate" href="#enumerate">4. 列挙値</a></h3>
 <p>これまでは、エラーとなる理由を表現するためにエラーコードという整数値が使われてきた。<br />
 Windows APIの<code>GetLastError()</code>関数がその代表的な例だ。</p>
@@ -175,85 +176,85 @@ Windows APIの<code>GetLastError()</code>関数がその代表的な例だ。</p
 <li><a href="http://homepage3.nifty.com/aokura/tips/e000000.html">GetLastError() メッセージ一覧</a></li>
 </ul>
 <p>しかし、単なる整数値では、ユーザーはまったく関係のない値との比較を書いてしまう可能性がある。</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1"></a><span class="dt">int</span> error_code = GetError();</span>
-<span id="cb5-2"><a href="#cb5-2"></a></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="cf">switch</span> (error_code) {</span>
-<span id="cb5-4"><a href="#cb5-4"></a>    <span class="cf">case</span> <span class="dv">0</span>: <span class="cf">return</span> <span class="st">&quot;正常&quot;</span>;</span>
-<span id="cb5-5"><a href="#cb5-5"></a>    <span class="cf">case</span> <span class="dv">1</span>: <span class="cf">return</span> <span class="st">&quot;接続失敗！&quot;</span>;</span>
-<span id="cb5-6"><a href="#cb5-6"></a>    <span class="cf">case</span> <span class="dv">2</span>: <span class="cf">return</span> <span class="st">&quot;送信失敗！&quot;</span>;</span>
-<span id="cb5-7"><a href="#cb5-7"></a>    <span class="cf">case</span> <span class="dv">3</span>: <span class="cf">return</span> <span class="st">&quot;受信失敗！&quot;</span>;</span>
-<span id="cb5-8"><a href="#cb5-8"></a></span>
-<span id="cb5-9"><a href="#cb5-9"></a>    <span class="cf">default</span>: <span class="co">// 何が入ってくるかわからない</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a>        <span class="cf">return</span> error_code + <span class="st">&quot;: 不明なエラー&quot;</span>;</span>
-<span id="cb5-11"><a href="#cb5-11"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> error_code = GetError();</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">switch</span> (error_code) {</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="dv">0</span>: <span class="cf">return</span> <span class="st">&quot;正常&quot;</span>;</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="dv">1</span>: <span class="cf">return</span> <span class="st">&quot;接続失敗！&quot;</span>;</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="dv">2</span>: <span class="cf">return</span> <span class="st">&quot;送信失敗！&quot;</span>;</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="dv">3</span>: <span class="cf">return</span> <span class="st">&quot;受信失敗！&quot;</span>;</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">default</span>: <span class="co">// 何が入ってくるかわからない</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> error_code + <span class="st">&quot;: 不明なエラー&quot;</span>;</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>そこで、列挙値というものが登場し、現れる可能性を列挙して、その範囲の値しか入り得ないようにすることができるようになった。</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">enum</span> ErrorValue {</span>
-<span id="cb6-2"><a href="#cb6-2"></a>    Success,</span>
-<span id="cb6-3"><a href="#cb6-3"></a>    ConnectError,</span>
-<span id="cb6-4"><a href="#cb6-4"></a>    SendError,</span>
-<span id="cb6-5"><a href="#cb6-5"></a>    ReceiveError</span>
-<span id="cb6-6"><a href="#cb6-6"></a>};</span>
-<span id="cb6-7"><a href="#cb6-7"></a></span>
-<span id="cb6-8"><a href="#cb6-8"></a>ErrorValue error_code = GetError();</span>
-<span id="cb6-9"><a href="#cb6-9"></a></span>
-<span id="cb6-10"><a href="#cb6-10"></a><span class="cf">switch</span> (error_code) {</span>
-<span id="cb6-11"><a href="#cb6-11"></a>    <span class="cf">case</span> Success:      <span class="cf">return</span> <span class="st">&quot;正常&quot;</span>;</span>
-<span id="cb6-12"><a href="#cb6-12"></a>    <span class="cf">case</span> ConnectError: <span class="cf">return</span> <span class="st">&quot;接続失敗！&quot;</span>;</span>
-<span id="cb6-13"><a href="#cb6-13"></a>    <span class="cf">case</span> SendError:    <span class="cf">return</span> <span class="st">&quot;送信失敗！&quot;</span>;</span>
-<span id="cb6-14"><a href="#cb6-14"></a>    <span class="cf">case</span> ReceiveError: <span class="cf">return</span> <span class="st">&quot;受信失敗！&quot;</span>;</span>
-<span id="cb6-15"><a href="#cb6-15"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">enum</span> ErrorValue {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    Success,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    ConnectError,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    SendError,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    ReceiveError</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>};</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>ErrorValue error_code = GetError();</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="cf">switch</span> (error_code) {</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> Success:      <span class="cf">return</span> <span class="st">&quot;正常&quot;</span>;</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> ConnectError: <span class="cf">return</span> <span class="st">&quot;接続失敗！&quot;</span>;</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> SendError:    <span class="cf">return</span> <span class="st">&quot;送信失敗！&quot;</span>;</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> ReceiveError: <span class="cf">return</span> <span class="st">&quot;受信失敗！&quot;</span>;</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>これによって、想定できる値をすべて挙げることができる場合において、<br />
 意図しない値が代入される可能性をなくすことができた。</p>
 <h3 id="論理値"><a name="boolean" href="#boolean">5. 論理値</a></h3>
 <p><code>bool</code>(C++), <code>boolean</code>(Java), <code>Bool</code>(Haskell)のように、いろんな言語で採用されている論理値と呼ばれるものは、正常値を表す値(<code>true</code>)と、異常値を表す値(<code>false</code>)の2つのみがありえる型とその値である。<br />
 これは、現代においてあらゆる環境でデフォルトで使用されるエラーハンドリングとなっている。</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1"></a><span class="dt">bool</span> b1 = <span class="kw">true</span>;  <span class="co">// 正常値</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="dt">bool</span> b2 = <span class="kw">false</span>; <span class="co">// 異常値</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> b1 = <span class="kw">true</span>;  <span class="co">// 正常値</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> b2 = <span class="kw">false</span>; <span class="co">// 異常値</span></span></code></pre></div>
 <p>論理値の問題点としては、異常値が「なぜ異常になったのか」という情報が持てないということだ。</p>
 <h3 id="例外"><a name="exception" href="exception">6. 例外</a></h3>
 <p>例外は、深い階層で発生したエラーを上位層でハンドリングするために、エラー値を伝搬していくのが手間であるという動機の元に導入された。</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1"></a><span class="dt">bool</span> f()</span>
-<span id="cb8-2"><a href="#cb8-2"></a>{</span>
-<span id="cb8-3"><a href="#cb8-3"></a>    <span class="cf">return</span> <span class="kw">false</span>;</span>
-<span id="cb8-4"><a href="#cb8-4"></a>}</span>
-<span id="cb8-5"><a href="#cb8-5"></a></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="dt">bool</span> g()</span>
-<span id="cb8-7"><a href="#cb8-7"></a>{</span>
-<span id="cb8-8"><a href="#cb8-8"></a>    ...</span>
-<span id="cb8-9"><a href="#cb8-9"></a>    <span class="dt">bool</span> result = f(); <span class="co">// 関数g()は、関数f()の結果を返す</span></span>
-<span id="cb8-10"><a href="#cb8-10"></a>    ...</span>
-<span id="cb8-11"><a href="#cb8-11"></a>    <span class="cf">return</span> result;</span>
-<span id="cb8-12"><a href="#cb8-12"></a>}</span>
-<span id="cb8-13"><a href="#cb8-13"></a></span>
-<span id="cb8-14"><a href="#cb8-14"></a><span class="dt">void</span> foo()</span>
-<span id="cb8-15"><a href="#cb8-15"></a>{</span>
-<span id="cb8-16"><a href="#cb8-16"></a>    <span class="dt">bool</span> result = g();</span>
-<span id="cb8-17"><a href="#cb8-17"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> f()</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">false</span>;</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> g()</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span> result = f(); <span class="co">// 関数g()は、関数f()の結果を返す</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result;</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> foo()</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span> result = g();</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>このプログラムでは、深い階層のどこでエラーが発生したかわかりにくく、また関数<code>g()</code>の直接のエラーでないにも関わらず、関数<code>g()</code>は関数<code>f()</code>の結果を返す必要がある。<br />
 これは例外を使うと以下のように書ける：</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1"></a><span class="dt">void</span> f()</span>
-<span id="cb9-2"><a href="#cb9-2"></a>{</span>
-<span id="cb9-3"><a href="#cb9-3"></a>    <span class="cf">throw</span> runtime_error(<span class="st">&quot;fでエラーがでた&quot;</span>);</span>
-<span id="cb9-4"><a href="#cb9-4"></a>}</span>
-<span id="cb9-5"><a href="#cb9-5"></a></span>
-<span id="cb9-6"><a href="#cb9-6"></a><span class="dt">void</span> g()</span>
-<span id="cb9-7"><a href="#cb9-7"></a>{</span>
-<span id="cb9-8"><a href="#cb9-8"></a>    ...</span>
-<span id="cb9-9"><a href="#cb9-9"></a>    f();</span>
-<span id="cb9-10"><a href="#cb9-10"></a>    ...</span>
-<span id="cb9-11"><a href="#cb9-11"></a>}</span>
-<span id="cb9-12"><a href="#cb9-12"></a></span>
-<span id="cb9-13"><a href="#cb9-13"></a><span class="dt">void</span> foo()</span>
-<span id="cb9-14"><a href="#cb9-14"></a>{</span>
-<span id="cb9-15"><a href="#cb9-15"></a>    <span class="co">// エラーが起こりえるブロック</span></span>
-<span id="cb9-16"><a href="#cb9-16"></a>    <span class="cf">try</span> {</span>
-<span id="cb9-17"><a href="#cb9-17"></a>        g();</span>
-<span id="cb9-18"><a href="#cb9-18"></a>    }</span>
-<span id="cb9-19"><a href="#cb9-19"></a>    <span class="co">// tryブロック内で例外が投げられたら捕捉する</span></span>
-<span id="cb9-20"><a href="#cb9-20"></a>    <span class="cf">catch</span> (runtime_error&amp; e) {</span>
-<span id="cb9-21"><a href="#cb9-21"></a>        error_message(e.what()); <span class="co">// 例外メッセージを表示する</span></span>
-<span id="cb9-22"><a href="#cb9-22"></a>    }</span>
-<span id="cb9-23"><a href="#cb9-23"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> f()</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">throw</span> runtime_error(<span class="st">&quot;fでエラーがでた&quot;</span>);</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> g()</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    f();</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> foo()</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">// エラーが起こりえるブロック</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> {</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>        g();</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">// tryブロック内で例外が投げられたら捕捉する</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">catch</span> (runtime_error&amp; e) {</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>        error_message(e.what()); <span class="co">// 例外メッセージを表示する</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>例外は、いくつかのケースでプログラムをわかりやすくした。<br />
 C++では例外におけるオーバーヘッドが大きいため、サイズ制限などが厳しい環境では例外が使えない場合が多い。</p>
 <p>例外の問題点としては、捕捉ミスによるアプリケーションエラーが起こりやすいということと、どの関数がどの例外を投げうるのかがわかりにくいということだ。<br />
@@ -268,12 +269,12 @@ Javaでは検査例外という機構を用意し、「この関数はこの例�
 ここでは「<a href="#pattern-match">8. パターンマッチ</a>」との差別化のため、C++における<code>boost::optional&lt;T&gt;</code>型で説明する。</p>
 <p>「<a href="#success-value-error-value">1. 正常値とエラー値</a>」で解説した「正常値／エラー値の仕様がライブラリによってまちまちで、仕様を調べないとミスが起こりやすい」という問題に対処するため、Boost C++ Librariesでは、<code>boost::optional&lt;T&gt;</code>という型を提供することにより、型によらない無効値の表現と、その型の値。この2種類が起こりえる型を表現した。<br />
 これにより、正常値、エラー値というものをライブラリの仕様ではなく、エラーが起こりえる型という形で、ヒューマンエラーの軽減に取り組んだ。</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1"></a><span class="ex">boost::</span>optional&lt;<span class="dt">int</span>&gt; a = <span class="dv">1</span>; <span class="co">// int型の値全てが正常値</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="ex">boost::</span>optional&lt;<span class="dt">int</span>&gt; b = <span class="ex">boost::</span>none; <span class="co">// noneが無効値</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="cf">if</span> (a) { <span class="co">// 正常値かどうかの判定</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a>    <span class="dt">int</span> x = a.get(); <span class="co">// 中身を取り出す</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">boost::</span>optional&lt;<span class="dt">int</span>&gt; a = <span class="dv">1</span>; <span class="co">// int型の値全てが正常値</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">boost::</span>optional&lt;<span class="dt">int</span>&gt; b = <span class="ex">boost::</span>none; <span class="co">// noneが無効値</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (a) { <span class="co">// 正常値かどうかの判定</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> x = a.get(); <span class="co">// 中身を取り出す</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>代表的な例：</p>
 <table>
 <thead>
@@ -306,13 +307,13 @@ Javaでは検査例外という機構を用意し、「この関数はこの例�
 <code>boost::optional&lt;T&gt;</code>型は、値が正常値かどうかの判定と、中身を取り出す操作がわかれているため、無効値を指した状態で中身を取り出すとアプリケーションエラーになるだろう。</p>
 <p>関数型言語一般で採用されているパターンマッチと呼ばれる機構は、この判定と取り出しを同時に行うことで、ヒューマンエラーを除去することができる。<br />
 Scala言語の<code>Option</code>型で例示する：</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb11-1"><a href="#cb11-1"></a>a : Option[<span class="dt">int</span>] = Some(<span class="dv">1</span>)</span>
-<span id="cb11-2"><a href="#cb11-2"></a>b : Option[<span class="dt">int</span>] = None</span>
-<span id="cb11-3"><a href="#cb11-3"></a></span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="kw">match</span> (a) {</span>
-<span id="cb11-5"><a href="#cb11-5"></a>    <span class="kw">case</span> Some(x) =&gt; print x</span>
-<span id="cb11-6"><a href="#cb11-6"></a>    <span class="kw">case</span> _       =&gt; print <span class="st">&quot;error&quot;</span></span>
-<span id="cb11-7"><a href="#cb11-7"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode scala"><code class="sourceCode scala"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">:</span> <span class="bu">Option</span><span class="op">[</span><span class="dt">int</span><span class="op">]</span> <span class="op">=</span> <span class="bu">Some</span><span class="op">(</span><span class="dv">1</span><span class="op">)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">:</span> <span class="bu">Option</span><span class="op">[</span><span class="dt">int</span><span class="op">]</span> <span class="op">=</span> <span class="bu">None</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="cf">match</span> <span class="op">(</span>a<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="bu">Some</span><span class="op">(</span>x<span class="op">)</span> <span class="op">=&gt;</span> print x</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> _       <span class="op">=&gt;</span> print <span class="st">&quot;error&quot;</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>ここでは、<code>case Some(x)</code>という式によって、「正常値だった場合には中身を取り出して変数xに代入する」ということをしている。<br />
 これによって、無効値を指しているのに中身を取り出そうと間違うことができなくなった。</p>
 <p>参考：</p>
@@ -323,16 +324,16 @@ Scala言語の<code>Option</code>型で例示する：</p>
 <p>C++で論理値を表現するための<code>bool</code>型は、歴史的経緯もあって、<code>true</code>／<code>false</code>以外でも任意の<code>int</code>値を格納できてしまい、たびたび意図しない値の代入による問題が起こっていた。</p>
 <p>Haskellのような言語では、論理値は代数データ型と呼ばれる機能によって定義される。<br />
 <code>Bool</code>型を以下のように定義した場合、</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">data</span> <span class="dt">Bool</span> <span class="ot">=</span> <span class="dt">True</span> <span class="op">|</span> <span class="dt">False</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Bool</span> <span class="ot">=</span> <span class="dt">True</span> <span class="op">|</span> <span class="dt">False</span></span></code></pre></div>
 <p><code>Bool</code>型は、「<code>True</code>」と「<code>False</code>」という2つの値以外は、決して格納できない型となる。</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb13-1"><a href="#cb13-1"></a>f :: Bool</span>
-<span id="cb13-2"><a href="#cb13-2"></a>f = True</span>
-<span id="cb13-3"><a href="#cb13-3"></a> </span>
-<span id="cb13-4"><a href="#cb13-4"></a>g :: Bool</span>
-<span id="cb13-5"><a href="#cb13-5"></a>g = False</span>
-<span id="cb13-6"><a href="#cb13-6"></a> </span>
-<span id="cb13-7"><a href="#cb13-7"></a>h :: Bool</span>
-<span id="cb13-8"><a href="#cb13-8"></a>h = <span class="dv">0</span>     -- エラー！</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>f :: Bool</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>f = True</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>g :: Bool</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>g = False</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>h :: Bool</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>h = <span class="dv">0</span>     -- エラー！</span></code></pre></div>
 <p>代数データ型は、「<code>0</code>という値が入りえない自然数の型」「要素が空になりえないリスト型」などに応用でき、型によって多くの保証を生み出すことに成功している。</p>
 <p>参照：</p>
 <ul>
