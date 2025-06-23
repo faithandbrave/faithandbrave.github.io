@@ -21,7 +21,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -305,25 +305,25 @@ class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb10-1"><a href="#
 <p>代表的な例：</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>言語</th>
 <th>表現</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>C++</td>
 <td><code>boost::optional&lt;T&gt;</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td>Haskell</td>
 <td><code>Maybe</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Scala</td>
 <td><code>Option</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td>C#</td>
 <td>null許容型</td>
 </tr>
@@ -387,17 +387,17 @@ Maybe — harmful?</a></p>
 <p>代表的な例：</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>言語</th>
 <th>型</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Haskell</td>
 <td><code>Either</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td>C++</td>
 <td><code>expected</code></td>
 </tr>
